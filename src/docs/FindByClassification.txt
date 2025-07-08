@@ -1,0 +1,35 @@
+@Repository
+public interface ClientRepository extends JpaRepository<Client, Long> {
+
+    @Query("SELECT c.classification, COUNT(c) FROM Client c GROUP BY c.classification")
+    List<Object[]> countClientsByClassification();
+}
+
+---------------------------------------------------------------------------
+@Service
+public class ClientService {
+
+	public Map<ClientClassification, Long> getClientCountByClassification() {
+	    List<Object[]> result = clientRepository.countClientsByClassification();
+	    Map<ClientClassification, Long> map = new EnumMap<>(ClientClassification.class);
+	    for (Object[] row : result) {
+	        ClientClassification classification = (ClientClassification) row[0];
+	        Long count = (Long) row[1];
+	        map.put(classification, count);
+	    }
+	    return map;
+	}
+}
+
+---------------------------------------------------------------------------
+@RestController
+@RequestMapping("/api/clients")
+public class ClientController {
+
+	@GetMapping("/classification/count")
+	@GetMapping("/classification/count")
+	public ResponseEntity<Map<ClientClassification, Long>> getClientCountByClassification() {
+	    return ResponseEntity.ok(clientService.getClientCountByClassification());
+	}
+}
+---------------------------------------------------------------------------

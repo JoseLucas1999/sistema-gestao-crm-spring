@@ -1,0 +1,54 @@
+4. Criar nova compra
+POST /purchases
+http://localhost:8080/api/purchases
+Body (JSON):
+
+{
+  "description": "Nova compra de serviço",
+  "date": "2025-07-05",
+  "value": 1750.00,
+  "client": { "id": 1 }
+}
+
+5. Atualizar compra
+PUT /purchases/{id}
+➡️ http://localhost:8080/api/purchases/1
+Body (JSON):
+
+{
+  "description": "Compra atualizada",
+  "date": "2025-07-05",
+  "value": 1900.00
+}
+
+6. Deletar compra
+DELETE /purchases/{id}
+➡️ http://localhost:8080/api/purchases/1
+
+7. Buscar acima de um valor
+Método: GET
+http://localhost:8080/api/purchases/greater-than?value=1000
+
+----------------------------------------------------------------------------
+a implementar:
+
+Filtrar compras por intervalo de datas
+Objetivo: Verificar compras em determinado período.
+
+GET /api/purchases/date-range?start=2025-01-01&end=2025-06-30
+
+Total de compras por cliente
+GET /api/purchases/total-by-client/{clientId}
+
+Resposta:
+{
+  "clientId": 1,
+  "total": 4500.00
+}
+
+Somatório geral das compras
+
+GET /api/purchases/total
+
+
+total de vendas em um determinado mês

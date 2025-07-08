@@ -1,0 +1,134 @@
+Base URL
+http://localhost:8080/api
+  
+1 - Buscar todos os clientes (GET):
+http://localhost:8080/api/clients
+  
+2 - Buscar cliente por ID (GET):
+http://localhost:8080/api/clients/1
+  
+3.1 - Criar um cliente (POST):
+http://localhost:8080/api/clients
+Body (JSON):
+  
+	{
+	"name": "Lucas Gois",
+	"cpf": "12312312300",
+	"email": "lucas@email.com",
+	"phone": "11999999999",
+	"classification": "POTENTIAL"
+	}
+
+3.2 - Criar um Aray de cliente (POST):
+Método: POST
+URL: http://localhost:8080/clients/batch
+Tipo: raw → JSON
+Body (JSON):
+
+[
+  {
+    "name": "Maria Oliveira",
+    "cpf": "23456789012",
+    "email": "maria@email.com",
+    "phone": "11999990002",
+    "classification": "POTENTIAL"
+  },
+  {
+    "name": "João Souza",
+    "cpf": "34567890123",
+    "email": "joao@email.com",
+    "phone": "11999990003",
+    "classification": "VIP"
+  }
+]
+
+
+4 - Atualizar um cliente (PUT)
+http://localhost:8080/api/clients/1
+Body (JSON):
+	
+	{
+	"name": "Lucas G. Gois",
+	"cpf": "12312312300",
+	"email": "lucasg@email.com",
+	"phone": "11999990000",
+	"classification": "VIP"
+	 }
+
+5. Deletar cliente (DELETE):
+http://localhost:8080/api/clients/10
+
+6. Buscar por classificação (GET):
+http://localhost:8080/api/clients/classification/VIP
+    VIP,
+    POTENTIAL,
+    REGULAR,
+    SILVER,
+    GOLD
+
+7. Buscar por nome (parcial) (GET):
+http://localhost:8080/api/clients/search?name=lucas
+
+8. Contar as Classifications
+
+GET http://localhost:8080/clients/classification/count
+
+Buscar por estato:
+http://localhost:8080/api/clients/state/SP
+
+Buscar por sexo:
+http://localhost:8080/api/clients/gender/MASCULINO
+
+Contar clientes por stado
+http://localhost:8080/api/clients/state/count
+
+porcentagem por sexo
+http://localhost:8080/api/clients/gender/percentage
+
+Buscar clientes por rank de loyaltScore
+http://localhost:8080/api/clients/loyalty/rank
+------------------------------------------------------------------------
+a implementar:
+
+
+Top classificações com média de compras
+
+
+------------------------------------------------------------------------
+Buscar clientes por método de contato preferido:
+
+@GetMapping("/contact-method/{method}")
+public ResponseEntity<List<Client>> getClientsByContactMethod(@PathVariable ContactMethod method) {
+    return ResponseEntity.ok(clientService.findByPreferredContactMethod(method));
+}
+------------------------------------------------------------------------
+Buscar clientes com loyaltyScore maior que um valor:
+
+@GetMapping("/loyaltyScore/greater-than")
+public ResponseEntity<List<Client>> getClientsByLoyaltyScoreGreaterThan(@RequestParam int score) {
+    return ResponseEntity.ok(clientService.findByLoyaltyScoreGreaterThan(score));
+}
+
+------------------------------------------------------------------------
+Criar endpoint para porcentagem de gênero (estatística)
+
+@GetMapping("/gender/percentage")
+public ResponseEntity<Map<ClientGender, Double>> getGenderPercentage() {
+    return ResponseEntity.ok(clientService.getGenderPercentage());
+}
+
+------------------------------------------------------------------------
+Adicionar endpoint para idade (age)
+
+@GetMapping("/age-range")
+public ResponseEntity<List<Client>> getByAgeRange(@RequestParam int min, @RequestParam int max) {
+    return ResponseEntity.ok(clientService.findByAgeRange(min, max));
+}
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+
+

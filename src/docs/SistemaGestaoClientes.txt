@@ -1,0 +1,63 @@
+Sistema de Gestão de Clientes (CRM Simples)	
+
+Empresa de vendas (pode ser de um produto como carros ou serviços como 
+construtora) que tenha uma lista clientes (50 clientes) com suas 
+informações necessárias para os negócios.
+
+--------------------------------------------------
+Objetivo: Centralizar e gerenciar os dados dos 50 clientes.
+
+Funcionalidades possíveis:
+Cadastro e edição de clientes. ok
+Histórico de compras ou contratos. ok
+Observações e follow-ups comerciais. ok
+Classificação de clientes (VIP, recorrente, potencial etc.). ok
+Exportação de relatórios.
+
+Tecnologias sugeridas:
+Spring Boot + MySQL + Thymeleaf (ou React se quiser API REST)
+
+----------------------------------------------------------------------
+Funcionalidades do Sistema CRM Simples
+
+1. Cadastro e edição de clientes:
+
+Nome, CPF, e-mail, telefone
+Endereço
+Classificação (VIP, Potencial, Recorrente etc.)
+
+2. Histórico de compras ou contratos:
+
+Data da compra
+Descrição
+Valor
+Observações
+
+3. Observações e follow-ups comerciais:
+
+Lista de anotações por cliente
+Data do follow-up
+Status (realizado, pendente)
+
+4. Classificação de clientes:
+
+Filtro por tipo de cliente (dropdown na listagem)
+
+5. Exportação de relatórios:
+
+Relatório PDF dos clientes
+
+Relatório de clientes com compras no mês
+Exportar para Excel (opcional)
+
+--------------------------------------------------
+Stack Tecnológica
+
+Backend: Spring Boot
+Banco: MySQL
+Frontend: React (APIs RestFul)
+PDF/Excel: Apache POI ou JasperReports (a definir depois)
+
+--------------------------------------------------
+
+

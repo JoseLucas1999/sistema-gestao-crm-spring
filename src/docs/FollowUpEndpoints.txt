@@ -1,0 +1,81 @@
+1. Buscar todos os follow-ups
+GET /followups
+http://localhost:8080/api/followups
+
+2. Buscar follow-up por ID
+GET /followups/{id}
+http://localhost:8080/api/followups/1
+
+3. Buscar follow-ups por cliente
+GET /followups/client/{clientId}
+http://localhost:8080/api/followups/client/1
+
+4. Buscar follow-ups por status
+GET /followups/status/{status}
+http://localhost:8080/api/followups/status/DONE
+
+5. Criar follow-up
+POST /followups
+http://localhost:8080/api/followups
+Body (JSON):
+
+{
+  "observation": "Novo contato com cliente",
+  "date": "2025-07-05",
+  "status": "PENDING",
+  "client": { "id": 1 }
+}
+
+6. Atualizar follow-up
+PUT /followups/{id}
+http://localhost:8080/api/followups/1
+Body (JSON):
+
+{
+  "observation": "Contato feito com sucesso",
+  "date": "2025-07-06",
+  "status": "DONE"
+}
+
+ 7. Deletar follow-up
+DELETE /followups/{id}
+http://localhost:8080/api/followups/1
+
+----------------------------------------------------------------------------
+a implementar:
+
+Follow-ups por período
+Útil para o gerente visualizar atividades do time no mês.
+
+GET /api/followups/date-range?start=2025-01-01&end=2025-07-01
+
+Contagem de follow-ups por status
+
+GET /api/followups/count-by-status
+
+Resposta:
+{
+  "DONE": 15,
+  "PENDING": 12
+}
+
+Último follow-up de cada cliente
+Para mostrar no dashboard o acompanhamento mais recente de cada cliente.
+
+GET /api/followups/last-per-client
+
+
+[RELATÓRIOS GERAIS] (opcional para /dashboard futuramente)
+Resumo geral
+GET /api/summary
+
+Resposta sugerida:
+{
+  "clients": 50,
+  "totalPurchases": 138000.00,
+  "avgPurchasePerClient": 2760.00,
+  "followupsPending": 7,
+  "vipClients": 9
+}
+
+

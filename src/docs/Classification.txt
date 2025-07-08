@@ -1,0 +1,41 @@
+public enum ClientClassification {
+    VIP,
+    POTENTIAL,
+    REGULAR,
+    SILVER,
+    GOLD
+}
+
+---------------------------------------------------------------------------
+@Entity
+public class Client{
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 10)
+	private ClientClassification classification;
+	
+}
+---------------------------------------------------------------------------
+@Repository
+public interface ClientRepository extends JpaRepository<Client, Long> {
+
+    List<Client> findByClassification(ClientClassification classification);
+}
+---------------------------------------------------------------------------
+@Service
+public class ClientService {
+    public List<Client> findByClassification(ClientClassification classification) {
+        return clientRepository.findByClassification(classification);
+    }
+}
+---------------------------------------------------------------------------
+@RestController
+@RequestMapping("/api/clients")
+public class ClientController {
+
+    @GetMapping("/classification/{classification}")
+    public ResponseEntity<List<Client>> getByClassification(@PathVariable ClientClassification classification) {
+        return ResponseEntity.ok(clientService.findByClassification(classification));
+    }
+}    
+---------------------------------------------------------------------------

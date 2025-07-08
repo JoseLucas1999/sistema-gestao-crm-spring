@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gestao
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/gestao_clientes?useTimeZone=true&serverTimeZone=UTF
+    username: root
+    password: 12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: UTC
