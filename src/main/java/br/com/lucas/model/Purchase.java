@@ -2,14 +2,22 @@ package br.com.lucas.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import br.com.lucas.enums.PurchasePaymentMethod;
+import br.com.lucas.enums.Purchasestatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -25,8 +33,19 @@ public class Purchase {
 	@Temporal(TemporalType.DATE) //indica que é um date
 	private LocalDate date;
 	
-	@Column(length = 10)
+	@Column(precision = 10, scale = 2)
 	private BigDecimal value;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "payment_method", nullable = false)
+	private PurchasePaymentMethod paymentMethod;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Purchasestatus satus;
+	
+	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseItems> items = new ArrayList<>();
 	
 	@ManyToOne
 	private Client client;
@@ -82,9 +101,33 @@ public class Purchase {
 		this.client = client;
 	}
 
+	public PurchasePaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(PurchasePaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public Purchasestatus getSatus() {
+		return satus;
+	}
+
+	public void setSatus(Purchasestatus satus) {
+		this.satus = satus;
+	}
+
+	public List<PurchaseItems> getItems() {
+		return items;
+	}
+
+	public void setItems(List<PurchaseItems> items) {
+		this.items = items;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(client, date, description, id, value);
+		return Objects.hash(client, date, description, id, items, paymentMethod, satus, value);
 	}
 
 	@Override
@@ -98,6 +141,8 @@ public class Purchase {
 		Purchase other = (Purchase) obj;
 		return Objects.equals(client, other.client) && Objects.equals(date, other.date)
 				&& Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(items, other.items) && paymentMethod == other.paymentMethod && satus == other.satus
 				&& Objects.equals(value, other.value);
 	}
+
 }

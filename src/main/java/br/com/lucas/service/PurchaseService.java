@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.lucas.model.Product;
 import br.com.lucas.model.Purchase;
 import br.com.lucas.repository.PurchaseRepository;
 
@@ -34,6 +35,9 @@ public class PurchaseService {
         return purchaseRepository.save(purchase);
     }
 
+    public List<Purchase> saveAll(List<Purchase> purchases) {
+        return purchaseRepository.saveAll(purchases);
+    }
 //-------------------------------------------------------------------------    
     public void deleteById(Long id) {
         purchaseRepository.deleteById(id);

@@ -1,0 +1,20 @@
+um purchase pode ser fechado com varios products, 
+e um product pode ser fechado em varios purchases.
+
+relacionamento muitos-para-muitos entre Purchase e Product.
+
+a melhor prática é criar uma entidade intermediária chamada PurchaseItem, 
+que representa cada produto dentro de uma compra, 
+incluindo a quantidade e até mesmo o preço no momento da compra
+--------------------------------------------------------------------------
+a entidade Purchase terá uma lista de PurchaseItem
+
+--------------------------------------------------------------------------
+
+@Entity
+public class Purchase {
+
+@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<PurchaseItem> items = new ArrayList<>();
+
+}

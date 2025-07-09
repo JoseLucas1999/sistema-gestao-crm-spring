@@ -55,6 +55,12 @@ public class PurchaseController {
     }
 
 //--------------------------------------------------------------------------
+    @PostMapping("/batch")
+    public ResponseEntity<List<Purchase>> createMultiplesPurchases(@RequestBody List<Purchase> purchases) {
+    	return ResponseEntity.ok(purchaseService.saveAll(purchases));
+    }
+    
+//--------------------------------------------------------------------------
     @PutMapping("/{id}")
     public ResponseEntity<Purchase> update(@PathVariable Long id, @RequestBody Purchase updated) {
         return purchaseService.findById(id).map(purchase -> {
